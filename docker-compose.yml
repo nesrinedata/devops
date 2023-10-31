@@ -23,5 +23,7 @@ services:
     tty: true
     depends_on:
       - mysqldb
+volumes:
+  db:
 
 
