@@ -14,7 +14,7 @@ services:
   # Spring Boot Application
   devops-app:
     image: khaliladimassi/achat-1.0:latest  # Replace with your Spring Boot image
-    restart: on-failure
+    # restart: on-failure # unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root_password
     ports:
