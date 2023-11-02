@@ -18,7 +18,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root_password
     ports:
-      - 6868:8082  # Map the container's port 8080 to host port 8080
+      - 8090:8090  # Map the container's port 8090 to host port 8090
     stdin_open: true
     tty: true
     depends_on:
