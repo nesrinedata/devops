@@ -44,7 +44,7 @@ pipeline {
         
         stage('DOCKER: BUILD') {
             steps{
-                sh 'docker build -t achat .'
+                sh 'docker build -t khaliladimassi/achat:1.0 .'
             }
         }
         
