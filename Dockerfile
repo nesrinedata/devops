@@ -2,7 +2,7 @@
 FROM openjdk:11
 
 # Expose port 8085
-EXPOSE 8085
+EXPOSE 8089
 
 # Add the JAR file to the image
 ADD target/achat-1.0.jar achat-1.0.jar
