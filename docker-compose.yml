@@ -23,7 +23,7 @@ services:
      SPRING_DATASOURCE_USERNAME: root
      SPRING_DATASOURCE_PASSWORD:
    ports:
-     - 8090:8090 # Map the container's port 8090 to host port 8090
+     - 8085:8085
    stdin_open: true
    tty: true
    depends_on:
