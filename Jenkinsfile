@@ -80,8 +80,8 @@ pipeline {
                script {
                    try {
                        emailext body: 'Test Message',
-                          subject: 'Test Subject',
-                          to: 'dimassi0khalil@gmail.com'
+                           subject: 'Test Subject',
+                           to: 'dimassi0khalil@gmail.com'
                    } catch (Exception e) {
                        error("SMTP Server is not working OR Email credentials are not valid")
                    }
@@ -94,8 +94,7 @@ pipeline {
         always {
             emailext to: 'dimassi0khalil@gmail.com',
                 subject: '${DEFAULT_SUBJECT}',
-                body: '${DEFAULT_CONTENT}',
-                debug: true
+                body: '${DEFAULT_CONTENT}'
         }
     }
 }
