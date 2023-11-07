@@ -92,7 +92,9 @@ pipeline {
     
     post {
       always {
-          emailext to: 'dimassi0khalil@gmail.com'
+          emailext to: 'dimassi0khalil@gmail.com',
+              subject: '${DEFAULT_SUBJECT}',
+              body: '${DEFAULT_CONTENT}'
       }
     }
 }
