@@ -29,7 +29,7 @@ scrape_configs:
       - targets:
           - 172.31.123.220:8080
   - job_name: 'backend_achat'
-    metrics_path: /SpringMVC/actuator/metrics
+    metrics_path: /SpringMVC/actuator/prometheus
     static_configs:
       - targets:
           - 172.31.123.220:8089
