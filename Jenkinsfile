@@ -74,6 +74,25 @@ pipeline {
                sh 'docker exec khalilallah_dimassi_5ds3-mysqldb-1 mysql -uroot -e "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = \'achatdb\';" | tr \'\n\' \', \''
             }
         }
-        
+
+        stage('Check SMTP Server') {
+           steps {
+               script {
+                   try {
+                       emailext body: 'Test Message',
+                          subject: 'Test Subject',
+                          to: 'dimassi0khalil@gmail.com'
+                   } catch (Exception e) {
+                       error("SMTP Server is not working OR Email credentials are not valid")
+                   }
+               }
+           }
+        }
+
+        post {
+          always {
+              emailext to: 'dimassi0khalil@gmail.com'
+          }
+        }
     }
 }
