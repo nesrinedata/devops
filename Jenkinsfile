@@ -88,11 +88,11 @@ pipeline {
                }
            }
         }
-
-        post {
-          always {
-              emailext to: 'dimassi0khalil@gmail.com'
-          }
-        }
+    }
+    
+    post {
+      always {
+          emailext to: 'dimassi0khalil@gmail.com'
+      }
     }
 }
