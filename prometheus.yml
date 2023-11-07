@@ -32,4 +32,4 @@ scrape_configs:
     metrics_path: /actuator/metrics
     static_configs:
       - targets:
-          - 172.31.123.220:8085
+          - 172.31.123.220:8089
