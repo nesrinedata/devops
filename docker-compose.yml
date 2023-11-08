@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
     ports:
-      - 3307:3306  # Map the container's port 3306 to host port 3306
+      - 3306:3306  # Map the container's port 3306 to host port 3306
     volumes:
       - db:/var/lib/mysql
 
@@ -18,12 +18,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root_password
     ports:
-      - 6868:8082  # Map the container's port 8080 to host port 8080
+      - 8082:8082  # Map the container's port 8080 to host port 8080
     stdin_open: true
     tty: true
     depends_on:
       - mysqldb
 volumes:
   db:
-
-
