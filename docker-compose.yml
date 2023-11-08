@@ -27,7 +27,7 @@ services:
     image: oussamasd/frontangular:1.0.0
     restart: on-failure
     ports:
-      - 8088:8088 
+      - 8088:88 
 volumes:
   db:
 
