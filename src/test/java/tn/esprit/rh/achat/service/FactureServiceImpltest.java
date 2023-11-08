@@ -42,7 +42,7 @@ public class FactureServiceImpltest {
 
     @Test
     @Order(3)
-    public void testretrieveCategorieProduit(){
+    public void testretrieveFacture(){
         Mockito.when(factureRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(facture));
         Facture facture1 = factureService.retrieveFacture(new Long(1));
         Assertions.assertNotNull(facture1);
@@ -51,18 +51,18 @@ public class FactureServiceImpltest {
 
     @Test
     @Order(2)
-    public void testAddCategorieProduit() {
+    public void testAddFacture() {
 
         Facture fc = new Facture();
 
 
         Mockito.when(factureRepository.save(fc)).thenReturn(fc);
 
-        Facture addedCategorieProduit = factureService.addFacture(fc);
+        Facture addedFacture = factureService.addFacture(fc);
 
         Mockito.verify(factureRepository).save(fc);
 
-        Assertions.assertEquals(fc, addedCategorieProduit);
+        Assertions.assertEquals(fc, addedFacture);
     }
 
 
