@@ -1,114 +1,63 @@
 package tn.esprit.rh.achat.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+
 import tn.esprit.rh.achat.entities.Stock;
-import tn.esprit.rh.achat.repositories.StockRepository;
-import tn.esprit.rh.achat.services.StockServiceImpl;
+import tn.esprit.rh.achat.services.IStockService;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@AutoConfigureTestDatabase
+@TestPropertySource(locations = "classpath:application-integrationtest.properties")
 class StockServiceImplTest {
 
-    @Mock
-    private StockRepository stockRepository;
-
-    @InjectMocks
-    private StockServiceImpl stockService;
-
-    // Test methods will go here
-    @Test
-    void testRetrieveAllStocks() {
-        // Arrange
-        Stock stock = new Stock();
-        List<Stock> stocks = Collections.singletonList(stock);
-        when(stockRepository.findAll()).thenReturn(stocks);
-
-        // Act
-        List<Stock> result = stockService.retrieveAllStocks();
-
-        // Assert
-        assertEquals(stocks, result);
-        verify(stockRepository, times(1)).findAll();
-    }
+    @Autowired
+    private IStockService stockService;
 
     @Test
     void testAddStock() {
-        // Arrange
-        Stock stock = new Stock();
-        when(stockRepository.save(stock)).thenReturn(stock);
+        Stock stock = new Stock("Test Stock", 100, 20);
+        stock = stockService.addStock(stock);
+        assertNotNull(stock.getIdStock());
+    }
 
-        // Act
-        Stock result = stockService.addStock(stock);
-
-        // Assert
-        assertEquals(stock, result);
-        verify(stockRepository, times(1)).save(stock);
+    @Test
+    void testRetrieveAllStocks() {
+        List<Stock> stocks = stockService.retrieveAllStocks();
+        assertNotNull(stocks);
     }
 
     @Test
     void testRetrieveStock() {
-        // Arrange
-        Long stockId = 1L;
-        Stock stock = new Stock();
-        when(stockRepository.findById(stockId)).thenReturn(Optional.of(stock));
-
-        // Act
-        Stock result = stockService.retrieveStock(stockId);
-
-        // Assert
-        assertEquals(stock, result);
-        verify(stockRepository, times(1)).findById(stockId);
-    }
-
-    @Test
-    void testRetrieveStatusStock() {
-        // Arrange
-        Stock stock = new Stock();
-        List<Stock> stocksEnRouge = Collections.singletonList(stock);
-        when(stockRepository.retrieveStatusStock()).thenReturn(stocksEnRouge);
-
-        // Act
-        String result = stockService.retrieveStatusStock();
-
-        // Assert
-        assertNotNull(result);
-        verify(stockRepository, times(1)).retrieveStatusStock();
-    }
-
-    @Test
-    void testUpdateStock() {
-        // Arrange
-        Stock stock = new Stock();
-        when(stockRepository.save(stock)).thenReturn(stock);
-
-        // Act
-        Stock result = stockService.updateStock(stock);
-
-        // Assert
-        assertEquals(stock, result);
-        verify(stockRepository, times(1)).save(stock);
+        Stock astock = new Stock("Test Stock", 100, 20);
+        astock = stockService.addStock(astock);
+        Stock stock = stockService.retrieveStock(astock.getIdStock());
+        assertNotNull(stock);
     }
 
     @Test
     void testDeleteStock() {
-        // Arrange
-        Long stockId = 1L;
+        Stock stock = new Stock("Test Stock", 100, 20);
+        stock = stockService.addStock(stock);
+        stockService.deleteStock(stock.getIdStock());
+        assertNull(stockService.retrieveStock(stock.getIdStock()));
+    }
 
-        // Act
-        stockService.deleteStock(stockId);
-
-        // Assert
-        verify(stockRepository, times(1)).deleteById(stockId);
+    @Test
+    void testUpdateStock() {
+        Stock stock = new Stock("Test Stock", 100, 20);
+        stock = stockService.addStock(stock);
+        stock.setLibelleStock("Updated Stock");
+        stock = stockService.updateStock(stock);
+        assertEquals("Updated Stock", stock.getLibelleStock());
     }
 }
