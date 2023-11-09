@@ -33,3 +33,7 @@ scrape_configs:
     static_configs:
       - targets:
           - 172.31.123.220:8089
+- job_name: "docker"
+  static_configs:
+  - targets: 
+    - localhost:9323
